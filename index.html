@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Agricultural Knowledge Concordance</title>
+  <meta name="description" content="A living atlas + library for agricultural knowledge, tools, and the communities that steward them." />
+
+  <meta property="og:title" content="Agricultural Knowledge Concordance" />
+  <meta property="og:description" content="A living atlas + library for agricultural knowledge, tools, and the communities that steward them." />
+  <meta property="og:image" content="assets/logo.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- NAV (OEDP-inspired: minimal header + over-left drawer) -->
+  <header class="nav-shell" role="banner">
+    <button class="menu-button" id="menuButton" aria-controls="drawer" aria-expanded="false">
+      <span class="menu-icon" aria-hidden="true"><span></span></span>
+      <span class="menu-label">MENU</span>
+    </button>
+
+    <div class="nav-title">
+      <div class="nav-title-text">A living atlas + library</div>
+    </div>
+
+    <div class="nav-logo" aria-hidden="true">
+      <img src="assets/logo.png" alt="" />
+    </div>
+  </header>
+
+  <!-- Drawer -->
+  <aside class="drawer" id="drawer" aria-hidden="true">
+    <div class="drawer-inner">
+      <div class="drawer-top">
+        <div class="drawer-mark">
+          <img src="assets/logo.png" alt="Agricultural Knowledge Concordance logo" />
+        </div>
+        <div class="drawer-vertical">Agricultural Knowledge Concordance Project</div>
+        <button class="drawer-close" id="drawerClose" aria-label="Close menu">✕</button>
+      </div>
+
+      <nav class="drawer-links" aria-label="Site">
+        <a href="#home" class="drawer-link">HOME</a>
+        <a href="#initiatives" class="drawer-link">INITIATIVES</a>
+        <a href="#fellows" class="drawer-link">FELLOWS</a>
+        <a href="#calendar" class="drawer-link">CALENDAR</a>
+        <a href="#contributors" class="drawer-link">CONTRIBUTORS</a>
+        <a href="#join" class="drawer-link">JOIN</a>
+      </nav>
+
+      <div class="drawer-meta">
+        <div class="drawer-meta-title">Contact</div>
+        <a class="drawer-meta-link" href="mailto:dorn@openteam.community?subject=Ag%20Knowledge%20Concordance%20-%20Website%20Inquiry">dorn@openteam.community</a>
+      </div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim" aria-hidden="true"></div>
+
+  <main id="main">
+    <!-- HOME / HERO -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-left">
+          <div class="feature-head">Make agricultural knowledge durable—together.</div>
+          <p class="feature-sub">
+            The Agricultural Knowledge Concordance is a community-built index of agricultural knowledge, tools, and the people who steward them.
+            We start with relationships and consent, then build governance and sustainable resourcing, and only then connect the technical stack.
+          </p>
+
+          <div class="hero-ctas">
+            <a class="btn primary" href="#join">Join / Onboard</a>
+            <a class="btn" href="#initiatives">Explore the work</a>
+          </div>
+
+          <div class="hero-notes">
+            <div class="note">
+              <div class="note-title">What’s here now</div>
+              <div class="note-body">A simple starter site: clear entry points, a growing list of initiatives, and a place to plug in.</div>
+            </div>
+            <div class="note">
+              <div class="note-title">What grows next</div>
+              <div class="note-body">Fellows profiles, a live event calendar, and deeper pages for the map, directory, tools, and trust library.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right">
+          <div class="tile-grid" aria-label="Primary sections">
+            <a class="tile" href="#initiatives">
+              <div class="tile-top">
+                <div class="tile-title">Initiatives</div>
+                <div class="tile-arrow" aria-hidden="true">→</div>
+              </div>
+              <div class="tile-desc">Map • Directory • Tool Library • Data & Trust</div>
+            </a>
+
+            <a class="tile" href="#work">
+              <div class="tile-top">
+                <div class="tile-title">Pilots & Projects</div>
+                <div class="tile-arrow" aria-hidden="true">→</div>
+              </div>
+              <div class="tile-desc">Talk to the Land • Talk to Your Tools</div>
+            </a>
+
+            <a class="tile" href="#fellows">
+              <div class="tile-top">
+                <div class="tile-title">Fellows</div>
+                <div class="tile-arrow" aria-hidden="true">→</div>
+              </div>
+              <div class="tile-desc">Call for nominations • Cohort support • Stipends</div>
+            </a>
+
+            <a class="tile" href="#calendar">
+              <div class="tile-top">
+                <div class="tile-title">Calendar</div>
+                <div class="tile-arrow" aria-hidden="true">→</div>
+              </div>
+              <div class="tile-desc">Feb 13 sessions • Working groups • Updates</div>
+            </a>
+          </div>
+
+          <div class="hero-caption">
+            <strong>Start small.</strong> Add a project, a tool, a dataset, or a story. Build the map over time.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="initiatives" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Initiatives</h2>
+          <p>
+            This site starts simple and expands as the community contributes entries, protocols, and reusable templates.
+            Each initiative below is designed to grow from a “starter index” into a deeper library over time.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <h3>Map</h3>
+            <p>
+              A participatory atlas of projects, places, steward groups, and the connections between them.
+              Start with a pin and a short description; add layers later.
+            </p>
+            <p class="muted">Coming next: filters, relationship views, and “show connections.”</p>
+          </article>
+
+          <article class="card">
+            <h3>Directory</h3>
+            <p>
+              A roster of people and organizations: what you steward, what you offer, what you need, and how to collaborate.
+            </p>
+            <p class="muted">Coming next: “offers/asks” matching and shared priorities.</p>
+          </article>
+
+          <article class="card">
+            <h3>Tool Library</h3>
+            <p>
+              A curated index of tools, protocols, templates, and training materials—documented for reuse.
+              Practical notes are valued as much as polished documentation.
+            </p>
+            <p class="muted">Coming next: tool comparisons, interoperability notes, and maintenance signals.</p>
+          </article>
+
+          <article class="card">
+            <h3>Data & Trust</h3>
+            <p>
+              A home for provenance, consent, and governed sharing.
+              Where “open” becomes accountable: access tiers, stewardship roles, and reciprocity expectations.
+            </p>
+            <p class="muted">Coming next: trust templates, review signals, and data trust pathways.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Pilots & Projects</h2>
+          <p>
+            We test lightweight, human-first workflows that generate durable outputs: structured narratives, shared maps,
+            and reusable stewardship patterns.
+          </p>
+        </div>
+
+        <div class="split">
+          <article class="panel">
+            <h3>Talk to the Land</h3>
+            <p>
+              A guided way to share structured stories of place—what the land is teaching, what practices are working,
+              what’s changing, and what must remain protected. Stories can be translated into shared knowledge without flattening context.
+            </p>
+            <ul>
+              <li>Capture: interview, circle, voice memo, or short form</li>
+              <li>Structure: key fields that make stories legible across contexts</li>
+              <li>Stewardship: permissions, review, and selective sharing</li>
+            </ul>
+            <p class="muted">Pilot focus: grazing lands and place-based observation.</p>
+          </article>
+
+          <article class="panel">
+            <h3>Talk to Your Tools</h3>
+            <p>
+              A companion workflow to document “technological terroir”—the local context that makes tools work:
+              materials, repair culture, skills, climate, crops, and social realities.
+            </p>
+            <ul>
+              <li>Tool stories: build notes, modifications, and maintenance reality</li>
+              <li>Safety & accessibility: what’s required to use tools well</li>
+              <li>Lineage & attribution: keep origins and improvements visible</li>
+            </ul>
+            <p class="muted">Pilot focus: grassroots agroecological innovation networks.</p>
+          </article>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">What “pilot” means here</div>
+          <div class="callout-body">We prototype in the open, learn quickly, and publish reusable patterns—so the community can adapt and extend them.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fellows" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Fellows</h2>
+          <p>
+            The Fellows program supports trusted contributors who help build the first-year foundation of the Concordance.
+            Fellows are nominated or self-nominated, meet monthly as a cohort, and share learnings with the community.
+            Fellows are recognized publicly and receive a stipend.
+          </p>
+        </div>
+
+        <div class="cards two">
+          <article class="card">
+            <h3>Call for nominations</h3>
+            <p>
+              The call for nominations (including self-nominations) will be announced at the Feb 13 Concordance virtual sessions.
+              Nominate someone (or self-nominate) who can bridge communities, collaborate well, and make durable contributions.
+            </p>
+            <a class="btn small disabled" href="#" aria-disabled="true">Nominations link (coming soon)</a>
+          </article>
+
+          <article class="card">
+            <h3>Fellows directory</h3>
+            <p>
+              A growing set of Fellows profiles: what they steward, what they’re building, and how to collaborate with them.
+            </p>
+            <a class="btn small disabled" href="#" aria-disabled="true">View Fellows (coming soon)</a>
+          </article>
+        </div>
+
+        <div class="faq">
+          <h3 class="faq-title">Fellows FAQ</h3>
+
+          <details>
+            <summary>What is a Concordance Fellow?</summary>
+            <p>A Fellow is a trusted contributor helping build the first-year foundation of the Concordance—especially the map, directory, tool library, and the stewardship practices that make shared agricultural knowledge durable, attributable, and safe to reuse.</p>
+          </details>
+
+          <details>
+            <summary>When does the call for nominations open?</summary>
+            <p>The call for nominations (including self-nominations) will be announced at the Feb 13 Concordance virtual sessions.</p>
+          </details>
+
+          <details>
+            <summary>Who can be nominated? Can I self-nominate?</summary>
+            <p>We welcome nominations of land stewards, Indigenous knowledge holders, community leaders, data stewards, librarians/archivists, tool builders, civic technologists, organizers, and researchers. Self-nominations are encouraged.</p>
+          </details>
+
+          <details>
+            <summary>What is the time commitment?</summary>
+            <p>Fellows meet once per month as a cohort. Fellows are invited (not required) to share short updates or present their work to the wider community. The program is designed to be lightweight and flexible.</p>
+          </details>
+
+          <details>
+            <summary>What support do Fellows receive?</summary>
+            <p>Fellows receive a monthly cohort space, public recognition, a stipend (issued as a contract), and opportunities to shape Concordance priorities during the first year.</p>
+          </details>
+
+          <details>
+            <summary>What about data sovereignty, sensitive knowledge, or safety concerns?</summary>
+            <p>We do not ask Fellows to publish sensitive information. Fellows can work at an appropriate sharing level (public, community-only, or restricted) and will be supported in consent-forward practices and selective disclosure.</p>
+          </details>
+        </div>
+
+        <p class="fineprint">
+          Want to help shape the Fellows program? Join an upcoming community call or reach out through the Connect section below.
+        </p>
+      </div>
+    </section>
+
+    <section id="calendar" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Calendar</h2>
+          <p>A simple events list now. Later we’ll add a full calendar page, working group rhythms, and a public calendar feed.</p>
+        </div>
+
+        <div class="events">
+          <div class="event">
+            <div class="event-date">
+              <div class="event-month">FEB</div>
+              <div class="event-day">13</div>
+            </div>
+            <div class="event-body">
+              <h3>Land Steward & Cultural Data Preservation — Virtual Sessions</h3>
+              <p class="muted">Two session times. A participatory mapping session focused on protocols, reciprocity, and stewardship needs.</p>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="event-date">
+              <div class="event-month">NEXT</div>
+              <div class="event-day">—</div>
+            </div>
+            <div class="event-body">
+              <h3>Working groups kickoff</h3>
+              <p class="muted">Monthly convenings for map building, tool documentation, and trust templates.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Add an event</div>
+          <div class="callout-body">Share a title, date/time, and a short description. We’ll add it here and to the calendar feed when it launches.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contributors" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>Key contributors</h2>
+          <p>
+            The Concordance is built with and alongside many communities. These are key contributors and convening partners.
+            This list will expand over time.
+          </p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <h3>The Concordance Project</h3>
+            <p class="muted">Project page and overview.</p>
+            <a class="btn small" href="https://www.codeforsociety.org/fsp/projects/concordance" target="_blank" rel="noopener">Visit</a>
+          </article>
+
+          <article class="card">
+            <h3>Farm Hack</h3>
+            <p class="muted">Open source farm innovation network.</p>
+            <a class="btn small" href="https://farmhack.org" target="_blank" rel="noopener">Visit</a>
+          </article>
+
+          <article class="card">
+            <h3>IndigiDAO</h3>
+            <p class="muted">Indigenous-led, sovereignty-forward governance and community infrastructure.</p>
+            <a class="btn small" href="https://indigidao.com" target="_blank" rel="noopener">Visit</a>
+          </article>
+
+          <article class="card">
+            <h3>OpenTEAM</h3>
+            <p class="muted">Open Technology Ecosystem for Agroecological Management.</p>
+            <a class="btn small" href="https://openteam.community" target="_blank" rel="noopener">Visit</a>
+          </article>
+        </div>
+
+        <p class="fineprint">Want your organization listed? Add an entry through onboarding (coming soon) or contact the team.</p>
+      </div>
+    </section>
+
+    <section id="join" class="section alt">
+      <div class="container">
+        <div class="section-head">
+          <h2>Join / Onboarding</h2>
+          <p>Start light and go deeper when you’re ready. You can revise your entry over time as projects and relationships evolve.</p>
+        </div>
+
+        <div class="cards two">
+          <article class="card">
+            <h3>Add your project or role</h3>
+            <p>
+              Share what you steward (knowledge, data, tools, protocols), what you offer, and what you need.
+              Choose your visibility level: public, community-only, or restricted.
+            </p>
+            <a class="btn small disabled" href="#" aria-disabled="true">Onboarding form (coming soon)</a>
+          </article>
+
+          <article class="card">
+            <h3>Host a “Talk to the Land” circle</h3>
+            <p>
+              Libraries, conservation districts, and community hosts can run local circles—collecting stories with consent,
+              supporting review, and returning value to contributors.
+            </p>
+            <a class="btn small disabled" href="#" aria-disabled="true">Host kit (coming soon)</a>
+          </article>
+        </div>
+
+        <div class="callout">
+          <div class="callout-title">Principles</div>
+          <div class="callout-body">Trust before tech • consent-forward sharing • reciprocity and accountability • reuse over reinvention • durable maintenance</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head">
+          <h2>About</h2>
+          <p>
+            A concordance is more than a list. It’s an index that preserves provenance and context, and points to where copies live—so knowledge remains usable over time.
+          </p>
+        </div>
+
+        <div class="split">
+          <article class="panel">
+            <h3>What we mean by “durable”</h3>
+            <p>
+              Durable knowledge has a clear lineage, stewards who can maintain it, and terms that prevent misuse.
+              It can be found again, understood in context, and updated without losing trust.
+            </p>
+          </article>
+
+          <article class="panel">
+            <h3>How this site will grow</h3>
+            <p>
+              This starter site is intentionally simple. As entries accumulate, we’ll add searchable pages, filters, hosted circles,
+              Fellows profiles, and templates for data trusts and shared governance.
+            </p>
+          </article>
+        </div>
+
+        <div class="contact" id="connect">
+          <h3>Connect</h3>
+          <p>Want to contribute, collaborate, or host a session? Email the team to share an event, contribute a resource, or connect with a working group.</p>
+          <p><a href="mailto:dorn@openteam.community?subject=Ag%20Knowledge%20Concordance%20-%20Website%20Inquiry">dorn@openteam.community</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Agricultural Knowledge Concordance logo" class="footer-logo" />
+        <div>
+          <div class="footer-title">Ag Knowledge Concordance</div>
+          <div class="footer-subtitle">A community-curated atlas + library</div>
+          <div class="footer-meta">© <span id="year"></span> Agricultural Knowledge Concordance — Built for GitHub Pages</div>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <a href="#home">Home</a>
+        <a href="#initiatives">Initiatives</a>
+        <a href="#work">Pilots & Projects</a>
+        <a href="#fellows">Fellows</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#contributors">Contributors</a>
+        <a href="#join">Join</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
