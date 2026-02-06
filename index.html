@@ -309,17 +309,280 @@
           <p>A simple events list now. Later we’ll add a full calendar page, working group rhythms, and a public calendar feed.</p>
         </div>
 
-        <div class="events">
-          <div class="event">
-            <div class="event-date">
-              <div class="event-month">FEB</div>
-              <div class="event-day">13</div>
+   <!-- ===================== -->
+<!-- CALENDAR (drop-in)    -->
+<!-- Paste this inside index.html where you want the Calendar list to appear. -->
+<!-- If you already have a "## Calendar" section, you can replace the current FEB/13 block with this. -->
+<!-- ===================== -->
+
+<section id="calendar" class="section">
+  <h2>Calendar</h2>
+  <p>
+    A simple events list now. Later we’ll add a full calendar page, working group rhythms, and a public calendar feed.
+  </p>
+
+  <!-- The list will render here -->
+  <div id="ack-events"></div>
+
+  <p style="margin-top: 1rem;">
+    <strong>Add an event:</strong> Reach out to the team to share a title, date/time, and a short description.
+  </p>
+</section>
+
+<script>
+  // ---------
+  // Events data
+  // ---------
+  const ACK_EVENTS = [
+    {
+      title: "Land Steward & Cultural Data Preservation — Virtual Session 1",
+      startUtc: "2026-02-13T16:00:00Z",
+      endUtc: "2026-02-13T17:30:00Z",
+      dateLabel: "FEB",
+      dayLabel: "13",
+      description:
+        "Two session times. A participatory mapping session focused on protocols, reciprocity, and stewardship needs.\nSession 1 — Feb 13: 08:00–09:30 PST / 11:00–12:30 ET / 16:00–17:30 UTC",
+      links: [
+        { label: "Register (Luma)", href: "https://luma.com/event/manage/evt-5WGJ3HKFss7sRuo" }
+      ],
+      location: "Online"
+    },
+    {
+      title: "Land Steward & Cultural Data Preservation — Virtual Session 2",
+      startUtc: "2026-02-14T02:00:00Z",
+      endUtc: "2026-02-14T03:30:00Z",
+      dateLabel: "FEB",
+      dayLabel: "13",
+      description:
+        "Session 2 — Feb 13: 18:00–19:30 PST / 21:00–22:30 ET / 02:00–03:30 UTC (Feb 14)",
+      links: [
+        { label: "Register (Luma)", href: "https://luma.com/event/manage/evt-pnHS2zC7em79kVm" }
+      ],
+      location: "Online"
+    },
+
+    // Upcoming events
+    {
+      title: "AI Impact Summit + AI Commons House (and side events)",
+      // All-day multi-day event (inclusive end date handled in ICS/Google via next-day end)
+      startDate: "2026-02-16",
+      endDateExclusive: "2026-02-21",
+      dateLabel: "FEB",
+      dayLabel: "16–20",
+      description: "AI Impact Summit — New Delhi, India. AI Commons House and related side events.",
+      links: [{ label: "Event site", href: "https://impact.indiaai.gov.in/" }],
+      location: "New Delhi, India"
+    },
+    {
+      title: "UVM Agroecology Institute Power Up Seminar",
+      startUtc: "2026-03-18T00:00:00Z", // shown as date-only in UI; calendar links will be all-day
+      endUtc: "2026-03-19T00:00:00Z",
+      dateLabel: "MAR",
+      dayLabel: "18",
+      description:
+        "Building Commons Enabling Infrastructure for Food Sovereignty: From Farm Hack to the Grassroots Innovations Assembly for Agroecology",
+      links: [{ label: "Details", href: "https://www.uvm.edu/instituteforagroecology/power-seminars" }],
+      location: "University of Vermont (see details)"
+    },
+    {
+      title: "UN Open Source Week NYC (cross-promoted with OSHWA)",
+      startDate: "2026-06-22",
+      endDateExclusive: "2026-06-27",
+      dateLabel: "JUN",
+      dayLabel: "22–26",
+      description: "United Nations Headquarters, New York.",
+      links: [{ label: "Event site", href: "https://www.unopensource.org/" }],
+      location: "United Nations HQ, New York, NY"
+    },
+    {
+      title: "DWeb Camp / DWeb Berlin (cross-promoted with DFoodweb & Internet Archive)",
+      startDate: "2026-07-08",
+      endDateExclusive: "2026-07-13",
+      dateLabel: "JUL",
+      dayLabel: "8–12",
+      description: "DWeb Camp — Berlin.",
+      links: [{ label: "Event site", href: "https://dwebcamp.org/" }],
+      location: "Berlin, Germany"
+    }
+  ];
+
+  // ---------
+  // Helpers: formatting + calendar links
+  // ---------
+  function pad(n) { return String(n).padStart(2, "0"); }
+
+  function toGoogleDateTime(isoUtc) {
+    // isoUtc like 2026-02-13T16:00:00Z -> 20260213T160000Z
+    const d = new Date(isoUtc);
+    return (
+      d.getUTCFullYear() +
+      pad(d.getUTCMonth() + 1) +
+      pad(d.getUTCDate()) +
+      "T" +
+      pad(d.getUTCHours()) +
+      pad(d.getUTCMinutes()) +
+      pad(d.getUTCSeconds()) +
+      "Z"
+    );
+  }
+
+  function toGoogleAllDayRange(startDate, endDateExclusive) {
+    // YYYY-MM-DD -> YYYYMMDD/YYYYMMDD
+    const s = startDate.replaceAll("-", "");
+    const e = endDateExclusive.replaceAll("-", "");
+    return `${s}/${e}`;
+  }
+
+  function googleCalendarLink(evt) {
+    const base = "https://calendar.google.com/calendar/render?action=TEMPLATE";
+    const text = encodeURIComponent(evt.title);
+    const details = encodeURIComponent(evt.description || "");
+    const location = encodeURIComponent(evt.location || "");
+    let dates;
+
+    if (evt.startDate && evt.endDateExclusive) {
+      dates = toGoogleAllDayRange(evt.startDate, evt.endDateExclusive);
+    } else {
+      dates = `${toGoogleDateTime(evt.startUtc)}/${toGoogleDateTime(evt.endUtc)}`;
+    }
+
+    return `${base}&text=${text}&dates=${dates}&details=${details}&location=${location}`;
+  }
+
+  function icsEscape(s) {
+    return String(s || "")
+      .replace(/\\/g, "\\\\")
+      .replace(/\n/g, "\\n")
+      .replace(/,/g, "\\,")
+      .replace(/;/g, "\\;");
+  }
+
+  function buildICS(evt) {
+    const uid = `ack-${Math.random().toString(16).slice(2)}@agknowledgeconcordance.org`;
+    const dtstamp = toGoogleDateTime(new Date().toISOString());
+
+    let dtStartLine = "";
+    let dtEndLine = "";
+
+    if (evt.startDate && evt.endDateExclusive) {
+      dtStartLine = `DTSTART;VALUE=DATE:${evt.startDate.replaceAll("-", "")}`;
+      dtEndLine = `DTEND;VALUE=DATE:${evt.endDateExclusive.replaceAll("-", "")}`;
+    } else {
+      dtStartLine = `DTSTART:${toGoogleDateTime(evt.startUtc)}`;
+      dtEndLine = `DTEND:${toGoogleDateTime(evt.endUtc)}`;
+    }
+
+    return [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Ag Knowledge Concordance//Calendar//EN",
+      "CALSCALE:GREGORIAN",
+      "METHOD:PUBLISH",
+      "BEGIN:VEVENT",
+      `UID:${uid}`,
+      `DTSTAMP:${dtstamp}`,
+      dtStartLine,
+      dtEndLine,
+      `SUMMARY:${icsEscape(evt.title)}`,
+      `DESCRIPTION:${icsEscape(evt.description || "")}`,
+      `LOCATION:${icsEscape(evt.location || "")}`,
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\r\n");
+  }
+
+  function downloadICS(evt) {
+    const ics = buildICS(evt);
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${evt.title.replace(/[^\w\-]+/g, "_")}.ics`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+
+    URL.revokeObjectURL(url);
+  }
+
+  // ---------
+  // Render (matches the site’s simple FEB / 13 / title / description format, plus dynamic links)
+  // ---------
+  function renderEvents() {
+    const root = document.getElementById("ack-events");
+    if (!root) return;
+
+    // Optional: split into "Next" and "Upcoming"
+    const nextCutoff = new Date("2026-02-15T00:00:00Z").getTime();
+
+    const normalized = ACK_EVENTS.map(e => {
+      const sortTime = e.startDate ? new Date(e.startDate + "T00:00:00Z").getTime() : new Date(e.startUtc).getTime();
+      return { ...e, _sortTime: sortTime };
+    }).sort((a,b) => a._sortTime - b._sortTime);
+
+    const next = normalized.filter(e => e._sortTime < nextCutoff);
+    const upcoming = normalized.filter(e => e._sortTime >= nextCutoff);
+
+    const sectionHTML = (label, items) => {
+      if (!items.length) return "";
+      return `
+        <div class="events-block" style="margin-top: 1.5rem;">
+          <div style="font-weight: 700; letter-spacing: .04em; opacity: .85; margin-bottom: .5rem;">${label}</div>
+          ${items.map(evt => `
+            <div class="event" style="display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.12);">
+              <div class="event-date" style="text-align: left;">
+                <div style="font-size: 12px; opacity: .85;">${evt.dateLabel}</div>
+                <div style="font-size: 22px; font-weight: 800; line-height: 1;">${evt.dayLabel}</div>
+              </div>
+              <div class="event-body">
+                <h3 style="margin: 0 0 .35rem 0;">${evt.title}</h3>
+                <p style="margin: 0 0 .6rem 0; opacity: .92; white-space: pre-line;">${evt.description || ""}</p>
+
+                <div class="event-links" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center;">
+                  ${(evt.links || []).map(l => `
+                    <a href="${l.href}" target="_blank" rel="noopener noreferrer"
+                       style="text-decoration: underline;">
+                      ${l.label}
+                    </a>
+                  `).join("")}
+
+                  <span style="opacity:.6;">•</span>
+
+                  <a href="${googleCalendarLink(evt)}" target="_blank" rel="noopener noreferrer"
+                     style="text-decoration: underline;">
+                    Add to Google Calendar
+                  </a>
+
+                  <span style="opacity:.6;">•</span>
+
+                  <button type="button"
+                    style="background: transparent; border: 0; padding: 0; margin: 0; cursor: pointer; text-decoration: underline; color: inherit;"
+                    onclick='(function(){ window.__ackDownloadICS && window.__ackDownloadICS(${JSON.stringify(evt).replace(/</g, "\\u003c")}); })();'>
+                    Download .ics
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="event-body">
-              <h3>Land Steward & Cultural Data Preservation — Virtual Sessions</h3>
-              <p class="muted">Two session times. A participatory mapping session focused on protocols, reciprocity, and stewardship needs.</p>
-            </div>
-          </div>
+          `).join("")}
+        </div>
+      `;
+    };
+
+    root.innerHTML = `
+      ${sectionHTML("NEXT", next)}
+      ${sectionHTML("UPCOMING", upcoming)}
+    `;
+
+    // Expose download function safely
+    window.__ackDownloadICS = function(evt) {
+      try { downloadICS(evt); } catch (e) { console.error(e); alert("Could not generate .ics file."); }
+    };
+  }
+
+  renderEvents();
+</script>
+
 
           <div class="event">
             <div class="event-date">
